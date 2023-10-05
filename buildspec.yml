@@ -1,6 +1,6 @@
 version: 0.2
 phases:
-  ppre_build:
+  pre_build:
     commands:
       - echo "Sending Slack notification: Build started..."
       - SLACK_WEBHOOK_URL=$(aws ssm get-parameter --name "/slack/webhook/url" --query "Parameter.Value" --output text)
