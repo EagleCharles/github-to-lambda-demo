@@ -8,7 +8,7 @@ phases:
       - ./slack_notification.sh "$SLACK_WEBHOOK_URL"
   install:
     runtime-versions:
-      python: 3.9
+      python: 3.11
     commands:
       - echo "Installing dependencies..."
       - pip install -r requirements.txt -t lib
