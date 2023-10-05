@@ -1,13 +1,11 @@
 version: 0.2
 phases:
-  pre_build:
+  ppre_build:
     commands:
       - echo "Sending Slack notification: Build started..."
       - SLACK_WEBHOOK_URL=$(aws ssm get-parameter --name "/slack/webhook/url" --query "Parameter.Value" --output text)
-      - |
-        curl -X POST --data-urlencode "payload={
-          \"text\": \":fire: Lambda build started! :rocket:\"
-        }" "$SLACK_WEBHOOK_URL"
+      - chmod +x slack_notification.sh
+      - ./slack_notification.sh "$SLACK_WEBHOOK_URL"
   install:
     runtime-versions:
       python: 3.9
@@ -25,10 +23,7 @@ phases:
     commands:
       - echo "Sending Slack notification: Build finished..."
       - SLACK_WEBHOOK_URL=$(aws ssm get-parameter --name "/slack/webhook/url" --query "Parameter.Value" --output text)
-      - |
-        curl -X POST --data-urlencode "payload={
-          \"text\": \":white_check_mark: Build finished successfully! :tada:\"
-        }" "$SLACK_WEBHOOK_URL"
+      - ./slack_notification.sh "$SLACK_WEBHOOK_URL"
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name DemoLambdaFunction --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
