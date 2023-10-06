@@ -1,20 +1,20 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
       python: 3.11
+  pre_build:
     commands:
-      - echo "Installing dependencies..."
-      - pip install -r requirements.txt -t lib
+      - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - echo "Zipping deployment package..."
-      - cd lib
-      - zip -r9 ../deployment_package.zip .
-      - cd ..
-      - zip -g deployment_package.zip lambda_function.py
+      - echo Build started on `date`
+      - sam build
+      - sam package --output-template-file outputtemplate.yaml --s3-bucket mygithubtolambda-assets-525610096428
   post_build:
     commands:
-      - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name DemoLambdaFunction --zip-file fileb://deployment_package.zip
-      - echo "DONE!!"
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - outputtemplate.yaml
