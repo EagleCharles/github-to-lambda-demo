@@ -8,11 +8,6 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lambda_function.lambda_handler
-<<<<<<< HEAD
-      Runtime: python3.9
-=======
       Runtime: python3.11
       FunctionName: Github-to-Lambda-Demo
->>>>>>> d31357a605d578c3dca769487963e59efb593126
       CodeUri: .
-whygit 
