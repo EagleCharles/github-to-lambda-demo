@@ -1,20 +1,17 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
-Description: My Python Lambda Function
+Description: Update Lambda Code
 
 Resources:
-  DemoLambdaFunction:
+  GithubToLambdaDemoFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lambda_function.lambda_handler
+<<<<<<< HEAD
       Runtime: python3.9
+=======
+      Runtime: python3.11
+      FunctionName: Github-to-Lambda-Demo
+>>>>>>> d31357a605d578c3dca769487963e59efb593126
       CodeUri: .
-      FunctionName: DemoLambdaFunction
-
-Outputs:
-  DemoLambdaFunctionArn:
-    Value:
-      Fn::GetAtt:
-        - DemoLambdaFunction
-        - Arn
